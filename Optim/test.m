@@ -1,0 +1,18 @@
+clc;clear;
+load MNIST.mat;
+load result.mat;
+load para.mat;
+testX = reshape(testX,[],28*28);
+testX = testX / 255;
+trainX = reshape(trainX,[],28*28);
+trainX = trainX / 255;
+[~,pred] = loss(trainX,trainY,a/1e3,layer1_size,layer2_size);
+[~,r] = max(trainY,[],2);
+r = r - 1;
+f = r == pred;
+fprintf('train accuracy: %f%%\n',sum(f)/length(f)*100);
+[~,pred] = loss(testX,testY,a/1e3,layer1_size,layer2_size);
+[~,r] = max(testY,[],2);
+r = r - 1;
+f = r == pred;
+fprintf('test accuracy: %f%%\n',sum(f)/length(f)*100);
